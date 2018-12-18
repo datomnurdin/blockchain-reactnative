@@ -1,5 +1,5 @@
 import Block from './block.js'
-import * as SHA from 'js-sha256';
+import sha256 from 'js-sha256'
 
 export default class Blockchain {
 
@@ -36,12 +36,12 @@ generateHash(block) {
 
     let hash = sha256(block.key)
     while(!hash.startsWith("0000")) {
-    block.nonce += 1
-    hash = sha256(block.key)
-    console.log(hash)
-}
+        block.nonce += 1
+        hash = sha256(block.key)
+        console.log(hash)
+    }
 
-return hash
+    return hash
 
 }
 

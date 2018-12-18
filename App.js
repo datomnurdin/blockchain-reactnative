@@ -6,8 +6,11 @@ import Blockchain from './blockchain.js'
 
 export default class App extends Component {
 
-  let genesisBlock = new Block()
-  let blockchain = new Blockchain(genesisBlock)
+  constructor(){
+    super()
+    this.genesisBlock = new Block();
+    this.blockchain = new Blockchain(this.genesisBlock);
+  }
 
   state = {
       from: '',
@@ -24,13 +27,11 @@ export default class App extends Component {
       this.setState({ distance: text })
    }
    add = (from, to, distance) => {
-      alert('from: ' + from + ' to: ' + to + ' distance: ' + distance)
+      this.transaction = new Transaction(from,to,distance)
+      this.block = this.blockchain.getNextBlock([this.transaction])
+      this.blockchain.addBlock(this.block)
 
-      let transaction = new Transaction(from,to,distance)
-      let block = blockchain.getNextBlock([transaction])
-      blockchain.addBlock(block)
-
-      console.log(blockchain)
+      alert(JSON.stringify(this.blockchain))
    }
   render() {
     return (
